@@ -1,0 +1,334 @@
+int playerCount = 0;
+int dealerCount = 0;
+float drawCard = 0;
+float cardValue = 0;
+float aCount, twoCount, threeCount, fourCount, fiveCount, sixCount, sevenCount, eightCount, nineCount, tenCount, jCount, qCount, kCount;
+boolean mouseClick;
+boolean playerTurn, dealerTurn;
+boolean reset;
+int playerPlacement = 300;
+int dealerPlacement = 300;
+String playerCardDrawn, dealerCardDrawn;
+
+void setup(){
+  textSize(30);
+  size(1200,800);
+  background(13,58,27); //sets up background
+  fill(206,241,157);
+  rect(450,715,150,75); //hit button
+  fill(57,134,132);
+  rect(600,715,150,75); //stand button
+  fill(57,134,132);
+  text("Hit", 505,765); //hit
+  fill(206,241,157);
+  text("Stand",635,765); //stand
+  mouseClick = false; 
+  playerDraw(); //begin game
+  dealerDraw();
+  playerTurn = true;
+  reset = false;
+}
+
+void draw(){
+  //allows mouse click of hit
+  if(mouseX>450 && mouseX<600 && mouseY>715 && mouseY<790){ 
+    if(mousePressed && !mouseClick){ //hit
+      if(playerTurn == true){
+        mouseClick = true;
+        playerDraw();
+        playerTurn = false;
+        dealerTurn = true;
+        text(playerCardDrawn, 220, playerPlacement); 
+        text(playerCount, 250, playerPlacement);
+       
+      }
+    }
+  }
+  //allows mouseclick of stand
+  else if(mouseX>600 && mouseX<750 && mouseY>715 && mouseY<790){ 
+    if(mousePressed && !mouseClick){ //stand
+      if(playerTurn == true){
+        mouseClick = true;
+        playerTurn = false;
+        dealerTurn = true;
+        text(playerCardDrawn, 220, playerPlacement);
+        text(playerCount, 250, playerPlacement);
+      }
+    }
+  }
+  //allows mouse click of reset
+  if(mouseX>515 && mouseX<695 && mouseY>350 && mouseY<425){ 
+    if(mousePressed && !mouseClick){
+       if(reset == true){
+         mouseClick = true;
+         reset();
+         reset = false;
+       }
+    }
+  }
+  if (dealerTurn == true && playerTurn == false){ //displayes what card was drawn
+    dealerDraw();
+    text(dealerCardDrawn, 815, dealerPlacement);
+  }
+  text(dealerCount, 850, dealerPlacement); //text placement of card
+  text(playerCount, 250, playerPlacement); //text placement of card
+}
+
+void mouseReleased(){
+   mouseClick = false; //allows mouse to click
+}
+
+void playerDraw(){ //Player draws a random card and it adds to its current value
+    drawCard();    
+    playerCount += cardValue;
+    playerPlacement+=40;
+    checkEnd();
+}
+
+void dealerDraw(){ //Dealer then does the same
+  drawCard();
+  dealerCount += cardValue;
+  dealerTurn = false;
+  playerTurn = true;
+  dealerPlacement+=40;
+  checkEnd();
+}
+
+void drawCard(){ // draws a random card with a limit of 52 cards, a single card can only be drawn 4 times
+  drawCard = int(random(1,14));
+  if (drawCard == 1){
+    if (aCount == 4){
+      drawCard = random(1,14);
+    }
+    aCount += 1;
+    if(playerTurn == true && dealerTurn == false){
+      playerCardDrawn = "A";
+    }
+    else if(playerTurn == false && dealerTurn == true){
+      dealerCardDrawn = "A";
+    }
+  }
+  else if (drawCard == 2){
+    if (twoCount == 4){
+      drawCard = random(1,14);
+    }
+    twoCount += 1;
+    if(playerTurn == true && dealerTurn == false){
+      playerCardDrawn = "2";
+    }
+    else if(playerTurn == false && dealerTurn == true){
+      dealerCardDrawn = "2";
+    }
+  }
+  else if (drawCard == 3){
+    if (threeCount == 4){
+      drawCard = random(1,14);
+    }
+    threeCount += 1;
+    if(playerTurn == true && dealerTurn == false){
+      playerCardDrawn = "3";
+    }
+    else if(playerTurn == false && dealerTurn == true){
+      dealerCardDrawn = "3";
+    }
+  }
+  else if (drawCard == 4){
+    if (fourCount == 4){
+      drawCard = random(1,14);
+    }
+    fourCount += 1;
+    if(playerTurn == true && dealerTurn == false){
+      playerCardDrawn = "4";
+    }
+    else if(playerTurn == false && dealerTurn == true){
+      dealerCardDrawn = "4";
+    }
+  }
+  else if (drawCard == 5){
+    if (fiveCount == 4){
+      drawCard = random(1,14);
+    }
+    fiveCount += 1;
+    if(playerTurn == true && dealerTurn == false){
+      playerCardDrawn = "5";
+    }
+    else if(playerTurn == false && dealerTurn == true){
+      dealerCardDrawn = "5";
+    }
+  }
+  else if (drawCard == 6){
+    if (sixCount == 4){
+      drawCard = random(1,14);
+    }
+    sixCount += 1;
+    if(playerTurn == true && dealerTurn == false){
+      playerCardDrawn = "6";
+    }
+    else if(playerTurn == false && dealerTurn == true){
+      dealerCardDrawn = "6";
+    }
+  }
+  else if (drawCard == 7){
+    if (sevenCount == 4){
+      drawCard = random(1,14);
+    }
+    sevenCount += 1;
+    if(playerTurn == true && dealerTurn == false){
+      playerCardDrawn = "7";
+    }
+    else if(playerTurn == false && dealerTurn == true){
+      dealerCardDrawn = "7";
+    }
+  }
+  else if (drawCard == 8){
+    if (eightCount == 4){
+      drawCard = random(1,14);
+    }
+    eightCount += 1;
+    if(playerTurn == true && dealerTurn == false){
+      playerCardDrawn = "8";
+    }
+    else if(playerTurn == false && dealerTurn == true){
+      dealerCardDrawn = "8";
+    }
+  }
+  else if (drawCard == 9){
+    if (nineCount == 4){
+      drawCard = random(1,14);
+    }
+    nineCount += 1;
+    if(playerTurn == true && dealerTurn == false){
+      playerCardDrawn = "9";
+    }
+    else if(playerTurn == false && dealerTurn == true){
+      dealerCardDrawn = "9";
+    }
+  }
+  else if (drawCard == 10){
+    if (tenCount == 4){
+      drawCard = random(1,14);
+    }
+    tenCount += 1;
+    if(playerTurn == true && dealerTurn == false){
+      playerCardDrawn = "10";
+    }
+    else if(playerTurn == false && dealerTurn == true){
+      dealerCardDrawn = "10";
+    }
+  }
+  else if (drawCard == 11){
+    if (jCount == 4){
+      drawCard = random(1,14);
+    }
+    jCount += 1;
+    if(playerTurn == true && dealerTurn == false){
+      playerCardDrawn = "J";
+    }
+    else if(playerTurn == false && dealerTurn == true){
+      dealerCardDrawn = "J";
+    }
+  }
+  else if (drawCard == 12){
+    if (qCount == 4){
+      drawCard = random(1,14);
+    }
+    qCount += 1;
+    if(playerTurn == true && dealerTurn == false){
+      playerCardDrawn = "Q";
+    }
+    else if(playerTurn == false && dealerTurn == true){
+      dealerCardDrawn = "Q";
+    }
+  }
+  else{
+    if (kCount == 4){
+      drawCard = random(1,14);
+    }
+    kCount += 1;
+    if(playerTurn == true && dealerTurn == false){
+      playerCardDrawn = "K";
+    }
+    else if(playerTurn == false && dealerTurn == true){
+      dealerCardDrawn = "K";
+    }
+  }
+  getValue();
+}
+
+void getValue(){ //gets the card to a numerical value and gives values to cards that are not numbers
+  if (drawCard >= 11){
+    cardValue = 10;
+  }
+  else if (drawCard == 1){
+    cardValue = 11;
+  }
+  else{
+    cardValue = drawCard;
+  }
+}
+
+void checkEnd(){ // checks for a winner
+  if(playerCount > 21 && dealerCount < 21|| dealerCount == 21){ //checks if the player has went over or the dealer had reached 21
+    playerTurn = false;
+    dealerTurn = false;
+    textSize(69);
+    text("Dealer Wins!", 400, 300);
+    textSize(30);
+    fill(255,249,122);
+    rect(515,350,180,75);
+    fill(0);
+    text("Play Again?", 525,400);
+    reset = true;
+    fill(206,241,157);
+  }
+  else if(dealerCount > 21 && playerCount < 21|| playerCount == 21){ //checks if the dealer has went over or the player had reached 21
+    playerTurn = false;
+    dealerTurn = false;
+    textSize(69);
+    text("Player Wins!", 400, 300);
+    textSize(30);
+    fill(255,249,122);
+    rect(515,350,180,75);
+    fill(0);
+    text("Play Again?", 525,400);
+    reset = true;
+    fill(206,241,157);
+  }
+}
+
+void reset(){ //resets the whole program
+  background(13,58,27);
+  fill(206,241,157);
+  rect(450,715,150,75);
+  fill(57,134,132);
+  rect(600,715,150,75);
+  fill(57,134,132);
+  text("Hit", 505,765);
+  fill(206,241,157);
+  text("Stand",635,765);
+  playerPlacement = 300;
+  dealerPlacement = 300;
+  playerCount = 0;
+  dealerCount = 0;
+  mouseClick = false;
+  playerDraw();
+  dealerDraw();
+  playerTurn = true;
+  reset = false;
+  aCount = 0;
+  twoCount = 0;
+  threeCount = 0;
+  fourCount = 0;
+  fiveCount = 0;
+  sixCount = 0;
+  sevenCount = 0;
+  eightCount = 0;
+  nineCount = 0;
+  tenCount = 0;
+  jCount = 0;
+  qCount = 0;
+  kCount = 0;
+
+  
+  
+}
